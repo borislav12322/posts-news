@@ -6,11 +6,16 @@ module.exports = {
   devtool: false,
   mode: "development",
   entry: "./src/index.tsx",
+  target: "web",
   devServer: {
     open: true,
     port: 8000,
     historyApiFallback: true,
     allowedHosts: "all",
+    hot: true,
+    static: {
+      directory: path.join(__dirname, 'build')
+    }
   },
   resolve: {
     extensions: [".js", ".jsx", ".tsx", ".ts", ".css"],
@@ -51,13 +56,14 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: path.join(__dirname, "src", "index.html"),
+      inject: true,
     }),
     new Dotenv({ path: "./.env" }),
   ],
   output: {
     path: path.resolve(__dirname, "build"),
-    filename: "main.js",
+    filename: "main.[contenthash].js",
     clean: true,
     publicPath: "/",
   },
