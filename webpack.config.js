@@ -59,6 +59,6 @@ module.exports = {
     path: path.resolve(__dirname, "build"),
     filename: "main.js",
     clean: true,
-    publicPath: "auto",
+    publicPath: "/",
   },
 };
