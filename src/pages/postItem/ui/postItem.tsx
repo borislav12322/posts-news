@@ -1,8 +1,9 @@
-import { PostCard } from "../../../entities/ui/postCard";
+import { PostCard } from "Entities/ui/postCard";
 import { useEffect, useState } from "react";
-import { api } from "../../../shared/api";
+import { api } from "Shared/api";
 import { useParams } from "react-router-dom";
 
+// Страница поста
 export const PostItem = () => {
   const { id } = useParams();
 
@@ -11,6 +12,7 @@ export const PostItem = () => {
 
   const { title, body } = cardInfo;
 
+  // Запрос поста
   useEffect(() => {
     setIsLoading(true);
     void api
@@ -26,5 +28,5 @@ export const PostItem = () => {
       });
   }, []);
 
-  return <>{isLoading ? "Loading..." : <PostCard title={title} body={body} measureRef={null} />}</>;
+  return <>{isLoading ? "Загрузка..." : <PostCard title={title} body={body} measureRef={null} />}</>;
 };

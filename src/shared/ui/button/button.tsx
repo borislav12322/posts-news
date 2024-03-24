@@ -1,6 +1,6 @@
 import s from "./button.module.css";
 import React, { FC } from "react";
-
+// Компонент кнопки
 interface IButton {
   text: string;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;

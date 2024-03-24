@@ -19,15 +19,20 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "useUnknownInCatchVariables": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "module": "ES2022",
     "moduleResolution": "node",
     "target": "ES2022",
     "jsx": "react-jsx",
-//    "allowJs": true,
-//    "checkJs": true,
     "esModuleInterop": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "paths": {
+      "App": ["src/app/"],
+      "Entities": ["src/entities/"],
+      "Pages": ["src/pages/"],
+      "Shared": ["'src/shared/"],
+      "Widgets": ["src/widgets/"]
+    }
   },
   "include": ["src/**/**/*"],
   "exclude": ["node_modules"]

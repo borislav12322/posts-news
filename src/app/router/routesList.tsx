@@ -1,8 +1,8 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import routeNames from "./routeNames.json";
-import { Wrapper } from "../../shared/ui/wrapper";
-import { Posts } from "../../pages/posts";
-import { PostItem } from "../../pages/postItem/ui";
+import { Wrapper } from "Shared/ui/wrapper";
+import { Posts } from "Pages/posts";
+import { PostItem } from "Pages/postItem/ui";
 
 export const routesList = createBrowserRouter([
   {

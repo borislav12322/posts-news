@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-
+// Хук для отслеживания скролла до конца списка постов
 export const useHandleViewPort = (
   options: {
     root: Element | Document | null;

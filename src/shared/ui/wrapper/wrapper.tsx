@@ -1,6 +1,8 @@
 import s from "./wrapper.module.css";
 import { Outlet } from "react-router-dom";
 import { Suspense } from "react";
+
+// Wrapper для всего приложения
 export const Wrapper = () => {
   return (
     <div className={s["wrapper"]}>

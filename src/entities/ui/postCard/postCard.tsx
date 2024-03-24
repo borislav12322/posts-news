@@ -1,7 +1,7 @@
 import s from "./postCard.module.css";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import routeNames from "../../../app/router/routeNames.json";
+import routeNames from "App/router/routeNames.json";
 
 interface IPostCard {
   id?: number;
@@ -9,8 +9,10 @@ interface IPostCard {
   body: string;
   measureRef: ((node: Element) => void) | null;
 }
+// Карточка с информацией о посту
 export const PostCard: FC<IPostCard> = ({ title, body, measureRef, id }) => {
   const navigate = useNavigate();
+  // Функция для навигации на страницу поста
   const navigateItem = () => {
     if (id) {
       navigate(`${routeNames.posts}/${id}`);

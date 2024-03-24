@@ -8,7 +8,7 @@ import { useHandleViewPort } from "../../../shared/hooks/handleViewPort";
 import { Button } from "../../../shared/ui/button";
 import pageData from "./postsList.json";
 import { useSearchParams } from "react-router-dom";
-
+// Компонент списка постов
 export const PostsList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParamPart = searchParams.get("part");
@@ -26,12 +26,14 @@ export const PostsList = () => {
     });
   };
 
+  // Получение дополнительных постов
   const getMorePosts = (count: number = 10) => {
     setPartQuery();
     setQueryOptions((oldValue) => ({ ...oldValue, limit: count * oldValue.part }));
     setSearchParams(() => ({ part: String(queryOptions.part + 1) }));
   };
 
+  // Запрос постов с сервера
   useEffect(() => {
     setIsLoading(true);
 
@@ -49,6 +51,7 @@ export const PostsList = () => {
 
   const { measureRef, isIntersecting, observer } = useHandleViewPort();
 
+  // Отслеживание скролла
   useEffect(() => {
     if (isIntersecting && queryOptions.limit < pageData.scroll_limit) {
       getMorePosts();
@@ -56,11 +59,13 @@ export const PostsList = () => {
     }
   }, [isIntersecting]);
 
+  // Функция нажатия для запроса дополнительных постов
   const onClickHandle = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     getMorePosts();
   };
 
+  // Защита query параметров от невалидных значений
   useEffect(() => {
     if (Number(queryParamPart) <= 0) {
       setSearchParams({ part: "1" });
