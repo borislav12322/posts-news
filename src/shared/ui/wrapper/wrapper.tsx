@@ -1,5 +1,6 @@
 import s from "./wrapper.module.css";
 import { Outlet } from "react-router-dom";
+import { Suspense } from "react";
 export const Wrapper = () => {
   return (
     <div className={s["wrapper"]}>
@@ -7,7 +8,9 @@ export const Wrapper = () => {
         <h1 className={s["title"]}>Посты</h1>
       </header>
       <div className={s["content"]}>
-        <Outlet />
+        <Suspense fallback={"Загрузка..."}>
+          <Outlet />
+        </Suspense>
       </div>
     </div>
   );

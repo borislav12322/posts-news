@@ -9,13 +9,6 @@ ul {
     list-style-type: none;
 }
 
-html,
-body,
-#root {
-    height: 100%;
-}
-
-
 button {
     cursor: pointer;
     border: 0;

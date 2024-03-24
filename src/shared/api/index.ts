@@ -4,7 +4,7 @@ import { IPosts } from "../models/posts";
 export class API {
   private baseUrl: string = apiConfig.base_url;
 
-  public async getPostsList(options: { limit: number; page: number } = { limit: 10, page: 1 }) {
+  public async getPostsList(options: { limit: number; page: number } = { limit: 10, page: 0 }) {
     try {
       return await fetch(`${this.baseUrl}/posts?_limit=${options.limit}&_page=${options.page}`, { method: "GET" })
         .then((res) => res.json())

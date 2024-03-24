@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { startTransition, useEffect, useState } from "react";
 import s from "./postsList.module.css";
 import React from "react";
 import { IPosts } from "../../../shared/models/posts";
@@ -6,20 +6,41 @@ import { api } from "../../../shared/api";
 import { PostCard } from "../../../entities/ui/postCard";
 import { useHandleViewPort } from "../../../shared/hooks/handleViewPort";
 import { Button } from "../../../shared/ui/button";
+import pageData from "./postsList.json";
+import { useSearchParams } from "react-router-dom";
 
 export const PostsList = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const queryParamPart = searchParams.get("part");
   const [posts, setPosts] = useState<IPosts[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [queryOptions, setQueryOptions] = useState({
-    limit: 10,
+    limit: pageData.common_limit * Number(queryParamPart) || pageData.common_limit,
     page: 1,
+    part: Number(queryParamPart) || 1,
   });
 
+  const setPartQuery = () => {
+    setQueryOptions((oldValue) => {
+      return { ...oldValue, part: oldValue.part + 1 };
+    });
+  };
+
+  const getMorePosts = (count: number = 10) => {
+    setPartQuery();
+    setQueryOptions((oldValue) => ({ ...oldValue, limit: count * oldValue.part }));
+    setSearchParams(() => ({ part: String(queryOptions.part + 1) }));
+  };
+
   useEffect(() => {
+    setIsLoading(true);
+
     void api
       .getPostsList(queryOptions)
       .then((res) => {
-        setPosts(res);
+        startTransition(() => {
+          setPosts(() => res);
+        });
       })
       .finally(() => {
         setIsLoading(false);
@@ -29,30 +50,54 @@ export const PostsList = () => {
   const { measureRef, isIntersecting, observer } = useHandleViewPort();
 
   useEffect(() => {
-    if (isIntersecting && queryOptions.limit < 35) {
-      setQueryOptions((oldValue) => ({ ...oldValue, limit: oldValue.limit + 5 }));
+    if (isIntersecting && queryOptions.limit < pageData.scroll_limit) {
+      getMorePosts();
       observer?.disconnect();
     }
   }, [isIntersecting]);
 
+  const onClickHandle = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    getMorePosts();
+  };
+
+  useEffect(() => {
+    if (Number(queryParamPart) <= 0) {
+      setSearchParams({ part: "1" });
+      return;
+    }
+
+    if (Number(queryParamPart) >= 10) {
+      setSearchParams({ part: "10" });
+      return;
+    }
+    if (isNaN(Number(queryParamPart))) {
+      setSearchParams({ part: "1" });
+      return;
+    }
+  }, [searchParams]);
+
   return (
-    <div>
-      {isLoading ? (
-        "...Loading"
-      ) : (
-        <div className={s["list"]}>
-          {posts.map((post, index, array) => {
-            return (
-              <PostCard
-                key={post.id}
-                title={post.title}
-                body={post.body}
-                measureRef={array.length - 1 === index ? measureRef : null}
-              />
-            );
-          })}
-        </div>
-      )}
-    </div>
+    <>
+      <div className={s["list"]}>
+        {posts.map((post, index, array) => {
+          return (
+            <PostCard
+              id={post.id}
+              key={post.id}
+              title={post.title}
+              body={post.body}
+              measureRef={array.length - 1 === index ? measureRef : null}
+            />
+          );
+        })}
+
+        {!isLoading && queryOptions.limit >= pageData.scroll_limit && queryOptions.limit < 100 && (
+          <Button text={pageData.button_text} onClick={onClickHandle} disabled={isLoading} />
+        )}
+      </div>
+
+      {isLoading ? <span>...Загрузка</span> : null}
+    </>
   );
 };

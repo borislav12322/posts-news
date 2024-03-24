@@ -45,11 +45,12 @@ module.exports = {
       template: "./src/index.html",
       title: "Посты",
     }),
-    new Dotenv({path: './.env',}),
+    new Dotenv({ path: "./.env" }),
   ],
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "main.[contenthash].js",
     clean: true,
+    publicPath: "/",
   },
 };

@@ -1,7 +1,5 @@
 import { PostsList } from "../../../widgets/postsList/ui";
 
-const Posts = () => {
+export const Posts = () => {
   return <PostsList />;
 };
-
-export default Posts;
