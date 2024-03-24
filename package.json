@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "https://borislav12322.github.io/posts-news",
   "scripts": {
     "dev": "webpack serve",
     "build": "webpack build",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [],
   "author": "",
@@ -35,6 +38,7 @@
     "eslint-plugin-react": "7.34.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "file-loader": "^6.2.0",
+    "gh-pages": "^6.1.1",
     "html-webpack-plugin": "^5.6.0",
     "json-loader": "^0.5.7",
     "prettier": "3.2.5",

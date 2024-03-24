@@ -55,7 +55,7 @@ module.exports = {
     new Dotenv({ path: "./.env" }),
   ],
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "build"),
     filename: "main.[contenthash].js",
     clean: true,
     publicPath: "/",
