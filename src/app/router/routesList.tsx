@@ -3,6 +3,7 @@ import routeNames from "./routeNames.json";
 import { Wrapper } from "Shared/ui/wrapper";
 import { Posts } from "Pages/posts";
 import { PostItem } from "Pages/postItem/ui";
+import { NotFound } from "Widgets/notFound/ui/notFound";
 
 export const routesList = createBrowserRouter([
   {
@@ -24,6 +25,6 @@ export const routesList = createBrowserRouter([
   },
   {
     path: "*",
-    element: <>404 not found</>,
+    element: <NotFound />,
   },
 ]);

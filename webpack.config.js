@@ -3,8 +3,8 @@ const Dotenv = require("dotenv-webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  devtool: "source-map",
-  mode: "production",
+  devtool: false,
+  mode: "development",
   entry: "./src/index.tsx",
   devServer: {
     open: true,
@@ -15,12 +15,12 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx", ".tsx", ".ts", ".css"],
     alias: {
-      App: path.resolve(__dirname, 'src/app/'),
-      Entities: path.resolve(__dirname, 'src/entities/'),
-      Pages: path.resolve(__dirname, 'src/pages/'),
-      Shared: path.resolve(__dirname, 'src/shared/'),
-      Widgets: path.resolve(__dirname, 'src/widgets/'),
-    }
+      App: path.resolve(__dirname, "src/app/"),
+      Entities: path.resolve(__dirname, "src/entities/"),
+      Pages: path.resolve(__dirname, "src/pages/"),
+      Shared: path.resolve(__dirname, "src/shared/"),
+      Widgets: path.resolve(__dirname, "src/widgets/"),
+    },
   },
   module: {
     rules: [
@@ -35,12 +35,14 @@ module.exports = {
           loader: "babel-loader",
           options: {
             presets: [
-              "@babel/preset-env", [
+              "@babel/preset-env",
+              [
                 "@babel/preset-react",
                 {
                   runtime: "automatic",
                 },
-              ], "@babel/preset-typescript",
+              ],
+              "@babel/preset-typescript",
             ],
           },
         },
@@ -50,14 +52,13 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
-      title: "Посты",
     }),
     new Dotenv({ path: "./.env" }),
   ],
   output: {
     path: path.resolve(__dirname, "build"),
-    filename: "main.[contenthash].js",
+    filename: "main.js",
     clean: true,
-    publicPath: "/",
+    publicPath: "auto",
   },
 };
