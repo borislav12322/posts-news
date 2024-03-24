@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --main-color: #5a5af5;
+}
+
+ul {
+    list-style-type: none;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+
+button {
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+}

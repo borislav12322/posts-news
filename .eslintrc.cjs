@@ -1,4 +1,3 @@
-/* eslint-env node */
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
@@ -17,14 +16,11 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   plugins: ["prettier"],
   rules: {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "prettier/prettier": [
       "error",
-      {
-        endOfLine: "crlf",
-        singleQuote: false,
-        trailingComma: "all",
-      },
     ],
   },
 };
